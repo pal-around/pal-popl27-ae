@@ -1,0 +1,152 @@
+%!TEX root = overleaf.tex
+\begin{figure}
+% \vspace{-2ex}
+\centering
+
+\newlength{\pgfplotwidth}
+\setlength{\pgfplotwidth}{90pt}
+\newlength{\pgfplotheight}
+\setlength{\pgfplotheight}{100pt}
+
+\newcommand\MkSubfigLabel[2]{%
+    \sffamily%
+    (#1)%
+    \label{#2}
+}
+
+\begin{tikzpicture}
+
+\begin{groupplot}[
+    group style={
+        group size=4 by 1,
+        horizontal sep=36pt,
+    },
+    ymode=log,
+    y tick label style={rotate=90},
+    xlabel={\# nodes},
+    height=\pgfplotheight,
+    width=\pgfplotwidth,
+    legend style={legend columns=1,},
+    % legend style={legend columns=2, /tikz/every even column/.append style={column sep=8pt}},
+]
+
+%%%%%%%%%%%%%%%%%% (a) link, running time %%%%%%%%%%%%%%%%%%
+\nextgroupplot[
+    align=center,
+    title={\MkSubfigLabel{a}{fig:link3} link failure},
+    ylabel={time (s)},
+    ymax=800000,
+    legend to name=A,
+]
+    \addplot[dice-perf, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=mean, col sep=comma]
+        {\detokenize{figures/grid_networks/link_failure_3flow-dice.csv}};
+    \addplot[pal-perf1, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=report, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-xla-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=reportnm, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-xla-plot.csv}};
+    \addplot[pal-perf, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=report, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-numpy-plot.csv}};
+    % \addplot[pal-perf, dashed, mark=none]
+    %     table [x expr=\thisrow{length}*\thisrow{length}, y=reportnm, col sep=comma]
+    %     {\detokenize{popl2027-data/grid-link3flow-numpy-plot.csv}};
+    \addplot[prob-tensor, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=mean, col sep=comma, restrict expr to domain={x}{300:100000}]
+        {\detokenize{figures/grid_networks/link_failure_3flow-dice.csv}};
+    \addplot[prob-tensor, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=mean, col sep=comma, restrict expr to domain={x}{300:100000}]
+        {\detokenize{figures/grid_networks/link_failure_3flow-dice.csv}};
+    \addlegendentry{Dice}
+    \addlegendentry{\PLang/XLA}
+    \addlegendentry{\PLang/XLA, no marg.}
+    \addlegendentry{\PLang/NumPy}
+    % \addlegendentry{\PLang/NumPy, no marg.}
+    \addlegendentry{$N$-joint}
+    \addlegendentry{$N$-joint, no marg.}
+
+%%%%%%%%%%%%%%%%%% (b) router, running time %%%%%%%%%%%%%%%%%%
+\nextgroupplot[
+    align=center,
+    title={\MkSubfigLabel{b}{fig:router} router failure},
+    ylabel={time (s)},
+    ymax=800000,
+]
+    \addplot[dice-perf, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=mean, col sep=comma]
+        {\detokenize{figures/grid_networks/router_failure-dice.csv}};
+    \addplot[pal-perf1, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=report, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-xla-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=reportnm, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-xla-plot.csv}};
+    \addplot[pal-perf, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=report, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-numpy-plot.csv}};
+    % \addplot[pal-perf, dashed, mark=none]
+    %     table [x expr=\thisrow{length}*\thisrow{length}, y=reportnm, col sep=comma]
+    %     {\detokenize{popl2027-data/grid-router-numpy-plot.csv}};
+
+%%%%%%%%%%%%%%%%%% (c) link, peak memory %%%%%%%%%%%%%%%%%%
+\nextgroupplot[
+    align=center,
+    title={\MkSubfigLabel{c}{fig:link3-mem} link failure},
+    ylabel={peak mem.\ (MB)},
+    ymax=100000,
+    ymin=0.0001,
+]
+    \addplot[prob-tensor, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-njoint-plot.csv}};
+    \addplot[prob-tensor, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peaknmMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-njoint-plot.csv}};
+    \addplot[pal-perf1, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-xla-mem-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peaknmMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-link3flow-xla-mem-plot.csv}};
+
+%%%%%%%%%%%%%%%%%% (d) router, peak memory %%%%%%%%%%%%%%%%%%
+\nextgroupplot[
+    align=center,
+    title={\MkSubfigLabel{d}{fig:router-mem} router failure},
+    ylabel={peak mem.\ (MB)},
+    ymax=100000,
+    ymin=0.0001,
+]
+    \addplot[prob-tensor, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-njoint-plot.csv}};
+    \addplot[prob-tensor, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peaknmMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-njoint-plot.csv}};
+    \addplot[pal-perf1, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-xla-mem-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x expr=\thisrow{length}*\thisrow{length}, y=peaknmMB, col sep=comma]
+        {\detokenize{popl2027-data/grid-router-xla-mem-plot.csv}};
+
+\end{groupplot}
+
+\node[right=0pt,inner sep=0pt] at (current bounding box.east) {\pgfplotslegendfromname{A}};
+
+
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\caption{Scaling of Dice and \PLang on network-reliability inference problems.
+% NumPy's actual resident memory runs higher, as it also materializes operation temporaries.
+The $y$-axis is log-scaled.}
+\label{fig:eval-grid}
+\end{figure}
+
+\let\pgfplotwidth\relax
+\let\pgfplotheight\relax

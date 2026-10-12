@@ -1,0 +1,49 @@
+% Packages, plot styles and macros used by the paper's figure and table sources
+% (report/paper/), so they typeset here as they do in the paper.
+\usepackage[margin=0.6in]{geometry}
+\usepackage{xspace}
+\usepackage{booktabs}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{fontawesome5}
+\usepackage[export]{adjustbox}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepgfplotslibrary{colorbrewer}
+\usepgfplotslibrary{fillbetween}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{
+  every axis/.append style={
+    cycle list/Dark2,
+    axis lines=box,
+    axis line style={-,black},
+    label style={font=\fontsize{8}{8}\selectfont},
+    tick label style={font=\tiny\color{black}},
+    xtick pos=left,
+    ytick pos=left,
+    enlarge x limits={.05},
+    legend cell align=center,
+    title style={font=\fontsize{8}{8}\selectfont},
+    legend style={font=\fontsize{7}{7}\selectfont,nodes={scale=1.0,},draw=none,},
+    legend cell align={left},
+    legend image post style={scale=0.5},
+  },
+  every axis plot/.append style={
+    every mark/.append style={
+      mark size=1.5pt,
+    },
+    semithick,
+  },
+}
+
+\definecolor{dice-perf}{HTML}{FF0000}
+\definecolor{memo-perf}{HTML}{FCACE7}
+\definecolor{pal-perf}{HTML}{000000}  % PAL/NumPy
+\definecolor{pal-perf1}{HTML}{5BBCD6} % PAL/XLA, cold
+\definecolor{pal-perf2}{HTML}{F2AD00} % PAL/XLA, warm
+\definecolor{prob-tensor}{HTML}{970E53}
+
+\newcommand{\PLang}{\textsc{Pal}\xspace}

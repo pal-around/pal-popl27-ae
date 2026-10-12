@@ -1,0 +1,40 @@
+# macOS metadata
+.DS_Store
+._*
+
+# Python bytecode, environments, and tool caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Python packaging outputs
+/pal-artifact/build/
+/pal-artifact/dist/
+*.egg-info/
+
+# Lean / Lake dependencies and build outputs
+.lake/
+
+# Nix build result links
+/result
+/result-*
+/pal-artifact/result
+/pal-artifact/result-*
+
+# Generated benchmark results (including reports)
+/pal-artifact/popl-ae/results/
+
+# Artifact distribution archive
+pal-artifact.tar.gz
+
+# Editor temporary files
+*.swp
+*.swo
+*~

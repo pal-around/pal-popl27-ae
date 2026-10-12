@@ -1,0 +1,394 @@
+%!TEX root = overleaf.tex
+\begin{figure}
+\vspace{-1ex}
+
+% \newlength{\subfigwidth}
+% \setlength{\subfigwidth}{85pt}
+\newlength{\pgfplotwidth}
+\setlength{\pgfplotwidth}{93pt}
+\newlength{\pgfplotheight}
+\setlength{\pgfplotheight}{85pt}
+\newlength{\pgfplotheightsmall}
+\setlength{\pgfplotheightsmall}{75pt}
+
+\newcommand\MkSubfigLabel[2]{%
+    \sffamily%
+    % (\textlabel{{#1}}{#2})\ %
+    (#1)%
+    \label{#2}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[xshift=-5ex]
+
+\begin{groupplot}[
+    % max space between ticks=20,
+    % xmode=log,
+    % ymode=log,
+    y tick label style={rotate=90},
+    x tick scale label style={
+        at={(1,0)},xshift=0pt,yshift=-4.6pt,anchor=west,inner sep=0pt
+    },
+    group style={
+        group size=5 by 3,
+        horizontal sep=22pt,
+        vertical sep=12pt,
+    },
+    height=\pgfplotheight,
+    width=\pgfplotwidth,
+    legend style={
+        legend columns=1,
+        % /tikz/every even column/.append style={column sep=6pt},
+    },
+    title style={
+        yshift=-1ex,
+    },
+]
+
+\nextgroupplot[
+    title={
+        % \MkSubfigLabel{a}{fig:caesar}
+        \textsf{cipher}
+    },
+    % xlabel={\# characters},
+    xticklabels={},
+    legend to name=A,
+    legend style={legend columns=5, /tikz/every even column/.append style={column sep=5pt}, draw=none, font=\footnotesize},
+]
+
+    \addplot[dice-perf, mark=none]
+        table [x=length, y=mean, col sep=comma]
+        {\detokenize{figures/caesar/caesar-dice.csv}};
+    % \addplot[pal-perf, mark=none]
+    %     table [x=length, y=numpyreport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+    % \addplot[pal-perf, dashed, mark=none]
+    %     table [x=length, y=numpynmreport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x=length, y=xlanmreport, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+
+    \coordinate (upper-top) at (rel axis cs:0,1);% coordinate at top of the first plot
+    \coordinate (upper-bot) at (rel axis cs:1,0);% coordinate at bottom of the last plot
+    \coordinate (upper-mid) at (rel axis cs:0.5,0.5);% coordinate at the middle of the first plot
+
+\nextgroupplot[
+    title={
+        % \MkSubfigLabel{b}{fig:diamond}
+        \textsf{diamond}
+    },
+    % xlabel={length},
+    xticklabels={},
+]
+
+    \addplot[dice-perf, mark=none]
+        table [x=length, y=mean, col sep=comma]
+        {\detokenize{figures/diamond/diamond-dice.csv}};
+
+    % \addplot[pal-perf, mark=none]
+    %     table [x=length, y=numpyreport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-diamond-plot.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-diamond-plot.csv}};
+
+    % \addplot[pal-perf2, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/diamond/diamond-pal-jit-cuda2.csv}};
+
+\nextgroupplot[
+    title={
+        % \MkSubfigLabel{c}{fig:ladder}
+        \textsf{ladder}
+    },
+    % xlabel={length},
+    xticklabels={},
+]
+
+    \addplot[dice-perf, mark=none]
+        table [x=length, y=mean, col sep=comma]
+        {\detokenize{figures/ladder/ladder-dice.csv}};
+
+    % \addplot[pal-perf, mark=none]
+    %     table [x=length, y=numpyreport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-ladder-plot.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-ladder-plot.csv}};
+
+    % \addplot[pal-perf2, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/ladder/ladder-pal-jit-cuda2.csv}};
+
+\nextgroupplot[
+    title={
+        % \MkSubfigLabel{d}{fig:dicefig1}
+        \textsf{scaling}
+    },
+    % xlabel={length},
+    xticklabels={},
+]
+
+    \addplot[dice-perf, mark=none]
+        table [x=length, y=mean, col sep=comma]
+        {\detokenize{figures/dicefig1/dicefig1-dice.csv}};
+
+    % \addplot[pal-perf, mark=none]
+    %     table [x=length, y=numpyreport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    % \addplot[pal-perf2, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/dicefig1/dicefig1-pal-jit-cuda2.csv}};
+
+\nextgroupplot[
+    title={
+        % \MkSubfigLabel{e}{fig:dicefig1-memo}
+        \textsf{scaling}
+    },
+    % xlabel={length},
+    legend to name=B,
+]
+
+    \addplot[memo-perf, mark=none]
+        table [x=length, y=run1mean, col sep=comma]
+        {\detokenize{figures/dicefig1/dicefig1-memo.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    % \addplot[pal-perf2, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/dicefig1/dicefig1-pal-jit-cuda2.csv}};
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xticklabels={},
+    % title={
+    %     \MkSubfigLabel{a}{fig:caesar}
+    %     cipher
+    % },
+]
+
+    % \addplot[dice-perf, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/caesar/caesar-dice.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+
+    \addplot[pal-perf2, mark=none]
+        table [x=length, y=xlawarmreport, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-ablation-plot.csv}};
+
+    \coordinate (lower-top) at (rel axis cs:0,1);% coordinate at top of the first plot
+    \coordinate (lower-bot) at (rel axis cs:1,0);% coordinate at bottom of the last plot
+    \coordinate (lower-mid) at (rel axis cs:0.5,0.5);% coordinate at the middle of the last plot
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xticklabels={},
+    % title={
+    %     \MkSubfigLabel{b}{fig:diamond}
+    %     diamond
+    % },
+]
+
+    % \addplot[dice-perf, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/diamond/diamond-dice.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-diamond-plot.csv}};
+
+    \addplot[pal-perf2, mark=none]
+        table [x=length, y=xlawarmreport, col sep=comma]
+        {\detokenize{popl2027-data/markov-diamond-plot.csv}};
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xticklabels={},
+    % title={
+    %     \MkSubfigLabel{c}{fig:ladder}
+    %     ladder
+    % },
+    ymax = 0.68,
+]
+
+    % \addplot[dice-perf, mark=none]
+    %     table [x=length, y=mean, col sep=comma]
+    %     {\detokenize{figures/ladder/ladder-dice.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-ladder-plot.csv}};
+
+    \addplot[pal-perf2, mark=none]
+        table [x=length, y=xlawarmreport, col sep=comma]
+        {\detokenize{popl2027-data/markov-ladder-plot.csv}};
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xticklabels={},
+    % title={
+    %     \MkSubfigLabel{d}{fig:dicefig1}
+    %     scaling
+    % },
+    legend to name=B,
+    ymax = 0.50,
+]
+
+    \addplot[dice-perf, mark=none, restrict expr to domain={x}{40000:100000}]
+        table [x=length, y=mean, col sep=comma]
+        {\detokenize{figures/dicefig1/dicefig1-dice.csv}};
+
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    \addplot[pal-perf1, dashed, mark=none, restrict expr to domain={x}{10000:100000}]
+        table [x=length, y=xlareport, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    % \addplot[pal-perf, mark=none, restrict expr to domain={x}{40000:40000}]
+    %     table [x=length, y=xlareport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    % \addplot[pal-perf, dashed, mark=none, restrict expr to domain={x}{40000:40000}]
+    %     table [x=length, y=xlareport, col sep=comma]
+    %     {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+
+    \addplot[pal-perf2, mark=none]
+        table [x=length, y=xlawarmreport, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-plot.csv}};
+    
+    \addplot[memo-perf, mark=none, restrict expr to domain={x}{10000:100000}]
+        table [x=length, y=run1mean, col sep=comma]
+        {\detokenize{figures/dicefig1/dicefig1-memo.csv}};
+
+    \addlegendentry{Dice}
+    \addlegendentry{\PLang/XLA}
+    \addlegendentry{\PLang/XLA, no marg.}
+    % \addlegendentry{\PLang/NumPy}
+    % \addlegendentry{\PLang/NumPy, no marg.}
+    \addlegendentry{\PLang/XLA (warm)}
+    \addlegendentry{memo}
+
+%%%%%%%%%%%%%%%%%% row 3: measured \PLang/XLA peak GPU memory %%%%%%%%%%%%%%%%%%
+% (row 2, col 5) is left empty; it holds the legend.
+\nextgroupplot[group/empty plot, height=\pgfplotheightsmall]
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xlabel={\# characters},
+    ymode=log,
+    ymin=0.0,
+    ymax=40,
+]
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-xla-mem-plot.csv}};
+    \addplot[pal-perf1, dashed, mark=none]
+        table [x=length, y=peaknmmemMB, col sep=comma]
+        {\detokenize{popl2027-data/markov-caesar-xla-mem-nm-plot.csv}};
+
+    \coordinate (mem-mid) at (rel axis cs:0.5,0.5);
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xlabel={length},
+    ymode=log,
+    ymin=0,
+    ymax=0.05,
+]
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/markov-diamond-xla-mem-plot.csv}};
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xlabel={length},
+    ymode=log,
+    ymin=0,
+    ymax=0.05,
+]
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/markov-ladder-xla-mem-plot.csv}};
+
+\nextgroupplot[
+    height=\pgfplotheightsmall,
+    try min ticks=2,
+    xlabel={length},
+    ymode=log,
+    ymin=0,
+    ymax=0.05,
+]
+    \addplot[pal-perf1, mark=none]
+        table [x=length, y=peakmemMB, col sep=comma]
+        {\detokenize{popl2027-data/markov-dicefig1-xla-mem-plot.csv}};
+
+
+\end{groupplot}
+
+\node (BB-west) at (current bounding box.west) {};
+\node[above,rotate=90,yshift=1pt] at (upper-mid -| BB-west) {
+    \begin{minipage}{44pt}
+    \centering
+    \fontsize{7.5}{8}\selectfont
+    time (s)
+    \end{minipage}
+};
+\node[above,rotate=90,yshift=1pt] at (lower-mid -| BB-west) {
+    \begin{minipage}{44pt}
+    \centering
+    \fontsize{7.5}{8}\selectfont
+    time (s)
+    \end{minipage}
+};
+\node[above,rotate=90,yshift=1pt] at (mem-mid -| BB-west) {
+    \begin{minipage}{44pt}
+    \centering
+    \fontsize{7.5}{8}\selectfont
+    mem.\ (MB)
+    \end{minipage}
+};
+
+\node[right=2ex, yshift=2.0ex, inner sep=0pt, anchor=north east] at (lower-mid -| current bounding box.east) {
+    \pgfplotslegendfromname{B}
+};
+
+\end{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\caption{Scaling of Dice~\cite{holtzen2020dice}, memo~\cite{chandra2025memo}, and \PLang on Markov models from \citet{holtzen2020dice}.}
+\label{fig:eval-dice}
+\end{figure}
+
+\let\subfigwidth\relax
+\let\pgfplotwidth\relax
+\let\pgfplotheight\relax
+\let\pgfplotheightsmall\relax

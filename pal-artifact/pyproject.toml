@@ -1,0 +1,31 @@
+[project]
+name = "pal-dev"
+version = "0.1.0"
+requires-python = ">= 3.12"
+dependencies = [
+    "click",
+    "jax",
+    "matplotlib",
+    "numpy",
+    "optax",
+    "pandas",
+    "pytest",
+    "ruff",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["pal*"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+ignore = ["F401", "F821", "F841"]
+
+# PAL programs use annotations and names that only the @pal compiler understands.
+[tool.pyright]
+ignore = ["unittests", "examples", "popl-ae"]

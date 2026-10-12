@@ -1,0 +1,49 @@
+%!TEX root = overleaf.tex
+\begin{wrapfigure}{r}{0.30\columnwidth}
+% \vspace{-2.5ex}
+\centering
+
+\newlength{\pgfplotwidth}
+\setlength{\pgfplotwidth}{1.17\linewidth}
+\newlength{\pgfplotheight}
+\setlength{\pgfplotheight}{100pt}
+
+\begin{tikzpicture}
+\begin{axis}[
+    width=\pgfplotwidth,
+    height=\pgfplotheight,
+    xmin=0,
+    xmax=5,
+    ymin=-1,
+    ymax=12,
+    xlabel={time (s)},
+    ylabel={KL divergence},
+    y tick label style={rotate=90},
+    legend style={at={(0.98,0.98)},anchor=north east},
+]
+
+    \addplot[dice-perf, mark=none, restrict expr to domain={x}{0:6}]
+        table [x=time, y=loss, col sep=comma]
+        {\detokenize{figures/natlist/dice_loss.csv}};
+
+    % \addplot[pal-perf2, mark=none, restrict expr to domain={x}{0:2.0}]
+    %     table [x=time, y=loss, col sep=comma]
+    %     {\detokenize{figures/natlist/pal_numpy_loss.csv}};
+
+    \addplot[pal-perf1, mark=none, restrict expr to domain={x}{0:1.5}]
+        table [x=time, y=loss, col sep=comma]
+        {\detokenize{figures/natlist/pal_loss.csv}};
+
+    \addlegendentry{Loaded Dice}
+    % \addlegendentry{\PLang/NumPy}
+    \addlegendentry{\PLang/XLA}
+
+\end{axis}
+\end{tikzpicture}
+% \vspace{-2.5ex}
+% \caption{Optimization loss for tuning a random generator of natural-number lists with $N=100$.}
+% \label{fig:tune-pbt}
+\end{wrapfigure}
+
+\let\pgfplotwidth\relax
+\let\pgfplotheight\relax

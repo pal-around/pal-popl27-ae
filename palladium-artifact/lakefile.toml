@@ -1,0 +1,37 @@
+name = "palladium"
+version = "0.1.0"
+defaultTargets = ["Palladium", "Results", "Extras", "Examples"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+version = "git#3ac4753d8b"
+
+[[require]]
+name = "lean4checker"
+git = "https://github.com/leanprover/lean4checker"
+rev = "v4.26.0"
+
+[[lean_lib]]
+name = "Util"
+
+[[lean_lib]]
+name = "TensorLib"
+
+[[lean_lib]]
+name = "JAX"
+
+[[lean_lib]]
+name = "Palladium"
+
+[[lean_lib]]
+name = "Results"
+srcDir = "."
+
+[[lean_lib]]
+name = "Extras"
+srcDir = "."
+
+[[lean_lib]]
+name = "Examples"
+srcDir = "."
