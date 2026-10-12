@@ -72,6 +72,7 @@
           alea-jl
           tex
         ] ++ (with pkgs; [
+          fish
           ruff  # PAL formats the programs it prints (--print-compiled) with it
           gnumake
           coreutils
